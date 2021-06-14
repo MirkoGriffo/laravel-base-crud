@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comic;
 use Illuminate\Http\Request;
 
 class ComicController extends Controller
@@ -13,7 +14,12 @@ class ComicController extends Controller
      */
     public function index()
     {
-        //
+
+        //get comics from db
+
+        $comics = Comic::all();
+
+        return view('comics.index', compact('comics'));
     }
 
     /**
@@ -45,7 +51,14 @@ class ComicController extends Controller
      */
     public function show($id)
     {
-        //
+        $comic = Comic::find($id);
+
+        if ($comic) {
+            return view('comics.show', compact('comic'));
+        }
+
+        //404
+        abort(404);
     }
 
     /**
